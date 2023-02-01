@@ -12,8 +12,9 @@ const { apiKey, apiPokemon } = environment;
   providedIn: 'root',
 })
 export class LoginService {
+  //for our login auth > if this is null no authorization
   private currentUserSource = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSource.asObservable();
+  currentUser$ = this.currentUserSource.asObservable(); //our observable aka context
   //inject http here
   constructor(private readonly http: HttpClient) {}
 
@@ -28,16 +29,11 @@ export class LoginService {
       })
     );
   }
-
   //GET //pop the last item on array and return
   private checkUsername(username: string): Observable<User | undefined> {
     return this.http.get<User[]>(`${apiPokemon}?username=${username}`).pipe(
       map((response: User[]) => {
-        const user = response.pop();
-        if (user) {
-          this.currentUserSource.next(user); //can use this for auth
-        }
-        return user;
+        return response.pop();
       })
     );
   }
@@ -59,10 +55,7 @@ export class LoginService {
       })
       .pipe(
         map((user) => {
-          if (user) {
-            this.currentUserSource.next(user);
-          }
-          return user
+          return user;
         })
       );
   }
@@ -76,3 +69,13 @@ export class LoginService {
     this.currentUserSource.next(null);
   }
 }
+/*
+38 line for safety
+  // if (user) {
+        //   this.currentUserSource.next(user); //can use this for auth
+        // }
+60 line for safety
+          // if (user) {
+          //   this.currentUserSource.next(user);
+          // }
+*/

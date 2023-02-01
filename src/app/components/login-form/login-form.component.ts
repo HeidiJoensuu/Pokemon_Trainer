@@ -32,6 +32,7 @@ export class LoginFormComponent implements OnInit {
     this.loginService.login(username).subscribe({
       next: (user: User) => {
         this.userService.user = user;
+        this.loginService.setCurrentUser(user);
         this.login.emit();
       },
       error: (err) => console.log(err),
