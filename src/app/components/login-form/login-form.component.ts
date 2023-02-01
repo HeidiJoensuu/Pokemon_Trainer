@@ -38,12 +38,4 @@ export class LoginFormComponent implements OnInit {
       complete: () => console.log('login complete'),
     });
   }
-  //login sevice will handle the logic to get user logged in
-
-  //get user name
-  //check if exist or not
-  //if exist > log in
-  //else create user
-  //save user name data to session storage
-  //redirect both
 }

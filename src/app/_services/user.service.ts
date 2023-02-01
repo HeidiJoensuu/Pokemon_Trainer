@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../_models/user.model';
 import { StorageUtil } from '../_utils/storage.utils';
 import { StorageKeys } from '../_enums/storage-keys';
+import { BehaviorSubject } from 'rxjs';
 //saving the user
 @Injectable({
   providedIn: 'root'

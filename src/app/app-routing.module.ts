@@ -1,23 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ErrorPage } from './pages/error/error.page';
 import { LoginPage } from './pages/login/login.page';
 import { ProfilePage } from './pages/profile/profile.page';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   //end points/routes goes here
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '/login',
+  { path: '', component: LoginPage },
+  { path: '', //! this dummy root will always protect other root 1auth guard for all roots
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [{ path: 'profile', component: ProfilePage }],
   },
-  {
-    path: 'login',
-    component: LoginPage,
-  },
-  {
-    path: 'profile',
-    component: ProfilePage,
-  },
+  { path: '**', component: ErrorPage, pathMatch: 'full' },
 ];
 
 @NgModule({
