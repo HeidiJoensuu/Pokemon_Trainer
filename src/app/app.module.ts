@@ -1,18 +1,20 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+
 import { LoginPage } from './pages/login/login.page';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePage } from './pages/profile/profile.page';
 import { ErrorPage } from './pages/error/error.page';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { CommonModule } from '@angular/common';
     LoginFormComponent,
     ProfilePage,
     ErrorPage,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
+    
+    
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),

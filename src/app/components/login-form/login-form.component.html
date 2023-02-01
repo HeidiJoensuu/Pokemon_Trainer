@@ -1,7 +1,9 @@
 <form #loginForm="ngForm" (ngSubmit)="handleSubmit(loginForm)">
-  <fieldset>
-    <label for="username">Username</label>
-    <input ngModel id="username" type="text" name="username" placeholder="joemama">
-  </fieldset>
-  <button type="submit">Log In</button>
+  <div class="container-fluid">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input ngModel id="username" type="text" name="username" class="form-control" placeholder="Joemama">
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </div>
 </form>

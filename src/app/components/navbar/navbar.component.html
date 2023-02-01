@@ -1,0 +1,25 @@
+<div class="bs-component">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active">Pokemon app</a>
+      <ng-container *ngIf="loginService.currentUser$ | async">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Trainer Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/catalogue">Pokemon Catalogue</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <button (click)="logout()" class="btn btn-secondary my-2 my-sm-0" type="submit">Log out</button>
+            </form>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </nav>
+
+</div>
