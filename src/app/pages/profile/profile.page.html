@@ -1,9 +1,16 @@
-<div class="list-group">
-  <a class="list-group-item list-group-item-action active">
-    Cras justo odio
-  </a>
-  <a class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-  <a class="list-group-item list-group-item-action">Morbi leo risus</a>
-  <a class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-  <a class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-</div>
+<ng-container>
+  <div class="list-group" *ngIf="!user?.pokemon?.length">
+    <a class="list-group-item list-group-item-action active">
+      You Havent Capured any pokemons yet...🤏😂
+    </a>
+  </div>
+  <div class="list-group" *ngIf="user?.pokemon?.length">
+    <a class="list-group-item list-group-item-action active">
+      Captured pokemons 🐿🦎🐊🐢🐘🐐
+    </a>
+    <ng-container *ngFor="let item of user?.pokemon">
+      <a class="list-group-item list-group-item-action pokemon-list-item">{{item}}</a>
+    </ng-container>
+  </div>
+
+</ng-container>
