@@ -4,6 +4,8 @@ export interface User {
  pokemon:Pokemon[]
 }
 interface Pokemon{
-  name: string,
-  image: string,
+
+  name: string, 
+  url: string
+  image?: string,
 }
