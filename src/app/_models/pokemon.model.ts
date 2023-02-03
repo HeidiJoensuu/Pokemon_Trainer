@@ -1,4 +1,5 @@
 export interface Pokemon {
     name: string,
-    jtn: string
+    url: string,
+    picture?: string
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, map, Observable} from 'rxjs';
-import { PokemonList } from '../models/Pokemon-List';
+import { Pokemon } from '../_models/pokemon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,15 @@ export class PokemonsService {
 
   constructor(private readonly http:HttpClient) { }
 
-  private readonly _pokemons$: BehaviorSubject<PokemonList[]> = new BehaviorSubject<PokemonList[]>([])
-  private readonly _showingPokemons$: BehaviorSubject<PokemonList[]> = new BehaviorSubject<PokemonList[]>([])
+  private readonly _pokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
+  private readonly _showingPokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
 
   public fetchPokemons(): void {
     this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
     .pipe(
       map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
     ).subscribe({
-      next: (pokemons: PokemonList[]) => {
+      next: (pokemons: Pokemon[]) => {
         if (!(window.sessionStorage.getItem('pokemons'))) {
           this._pokemons$.next(pokemons)
           window.sessionStorage.setItem('pokemons', JSON.stringify(pokemons))
@@ -30,9 +30,9 @@ export class PokemonsService {
     })
   }
 
-  public fetchPokemonPictures(poke: any): void {
-    let showingPokemons: any[] = []
-    poke.forEach((element: any) => {
+  public fetchPokemonPictures(poke: Pokemon[]): void {
+    let showingPokemons: Pokemon[] = []
+    poke.forEach((element: Pokemon) => {
       if (!element.picture) {     
         this.http.get(element.url)
         .pipe(
@@ -41,13 +41,13 @@ export class PokemonsService {
           next: (pokemon) => {
             //@ts-ignore
             let picture = pokemon.sprites?.other?.dream_world?.front_default
-            let jee = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
-            const index = jee.findIndex((e: { name: string; }) => e.name ===element.name)
-            jee[index].picture = picture
+            let pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+            const index = pokemonList.findIndex((e: { name: string; }) => e.name ===element.name)
+            pokemonList[index].picture = picture
             element.picture = picture
             showingPokemons.push(element);
-            window.sessionStorage.setItem('pokemons', JSON.stringify(jee))
-            this._pokemons$.next(jee)
+            window.sessionStorage.setItem('pokemons', JSON.stringify(pokemonList))
+            this._pokemons$.next(pokemonList)
             this._showingPokemons$.next(showingPokemons)
           },
           error: (error: HttpErrorResponse) => {
@@ -60,16 +60,17 @@ export class PokemonsService {
     })
   }
   
-  public get showingPokemons$() : Observable<PokemonList[]> {
+  public get showingPokemons$() : Observable<Pokemon[]> {
     return this._showingPokemons$.asObservable()
   }
 
-  public get pokemons$() : Observable<PokemonList[]> {
+  public get pokemons$() : Observable<Pokemon[]> {
     this._pokemons$.next(JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}'))
     return this._pokemons$.asObservable()
   }
+
 }
 
 interface PokemonsResponse {
-  results: PokemonList[]
+  results: Pokemon[]
 }

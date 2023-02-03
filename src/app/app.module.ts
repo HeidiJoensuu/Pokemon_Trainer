@@ -1,27 +1,47 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgbTooltipModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { PokemonCatalogueComponent } from './components/pokemon-catalogue/pokemon-catalogue.component';
+import { LoginPage } from './pages/login/login.page';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { ProfilePage } from './pages/profile/profile.page';
+import { ErrorPage } from './pages/error/error.page';
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginPage,
+    LoginFormComponent,
     PokemonCatalogueComponent,
+    ProfilePage,
+    ErrorPage,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
-    HttpClientModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
+    NgbTooltipModule,
+    NgbPaginationModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,11 +1,13 @@
 import { OnInit } from '@angular/core';
-import { PokemonList } from 'src/app/models/Pokemon-List'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Pokemon } from 'src/app/_models/pokemon.model'
 import { PokemonsService } from 'src/app/services/pokemons.service';
 import { Component } from '@angular/core';
 import { DecimalPipe, NgFor } from '@angular/common';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, take, map, tap, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
+import { take, map, tap, startWith, filter } from 'rxjs/operators'
 
 @Component({
   selector: 'app-pokemon-catalogue',
@@ -17,18 +19,9 @@ export class PokemonCatalogueComponent implements OnInit {
   page = 1;
   pageSize= 10;
   collectionSize = 1279
-  jtn: any = []
-  filter = new FormControl('', {nonNullable: true})
+  showingPokemons: Pokemon[] = []
 
-  constructor(private readonly pokemonsService: PokemonsService) {
-    /*
-    this.jtn = this.filter.valueChanges.pipe(
-      startWith(''),
-      tap(j => console.log(j)),
-      map((input) => this.searchPokemons(input))
-    )
-    */
-  }
+  constructor(private readonly pokemonsService: PokemonsService) {}
 
   ngOnInit(): void {
     this.pokemonsService.fetchPokemons()
@@ -36,30 +29,21 @@ export class PokemonCatalogueComponent implements OnInit {
     this.refreshPokemons()
   }
 
-  public get pokemons$(): Observable<PokemonList[]> {  
+  public get pokemons$(): Observable<Pokemon[]> {  
     return this.pokemonsService.showingPokemons$
   }
 
   private refresPage = () => {
     const result = this.pokemonsService.pokemons$
     .subscribe(pokemons => {
-      this.jtn = pokemons.slice(((this.page-1)*this.pageSize),(this.page*this.pageSize))
+      this.showingPokemons = pokemons.slice(((this.page-1)*this.pageSize),(this.page*this.pageSize))
     })
     result.unsubscribe()
   }
 
-  private searchPokemons = (input: string) => {
-    console.log(input);
-    
-    return this.pokemonsService.pokemons$
-    .pipe(
-      tap(poke => console.log(poke))
-      )
-  }
-
   refreshPokemons() {
     this.refresPage()
-    this.pokemonsService.fetchPokemonPictures(this.jtn)
+    this.pokemonsService.fetchPokemonPictures(this.showingPokemons)
   }
   
 }
