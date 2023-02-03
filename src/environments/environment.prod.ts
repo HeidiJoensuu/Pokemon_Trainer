@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiKey: "1234567890",
-  apiPokemon: "https://mixolydian-handy-brachiosaurus.glitch.me/trainers"
+  apiKey: "kfdsnura034smjsitnahrdhdahgc",
+  apiPokemon: "https://notch-wheat-anise.glitch.me/trainers"
 };

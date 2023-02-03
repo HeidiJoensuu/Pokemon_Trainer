@@ -1,0 +1,45 @@
+<p>pokemon-catalogue works!</p>
+<p>You can bind our <code>NgbPagination</code> component with slicing the data list</p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Pokemon</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let pokemon of pokemons$ | async">
+			<td>
+				<img
+                    [src]= "pokemon?.picture"
+					class="me-2"
+					style="width: 20px"
+                    alt=""
+				/>
+                {{ pokemon.name }}
+			</td>
+			<td>
+                <button>Catch!</button>
+            </td>
+                
+		</tr>
+	</tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+	<ngb-pagination
+		[collectionSize]="collectionSize"
+		[(page)]="page"
+		[pageSize]="pageSize"
+        [maxSize]="5"
+        [rotate]="true"
+		(pageChange)="refreshPokemons()"
+	>
+	</ngb-pagination>
+	<select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshPokemons()">
+		<option [value]="10">10 items per page</option>
+		<option [value]="20">20 items per page</option>
+		<option [value]="50">50 items per page</option>
+	</select>
+</div>
