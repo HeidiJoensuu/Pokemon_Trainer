@@ -1,30 +1,36 @@
 <ng-container>
+
   <div>
-    <div class="list-group" *ngIf="!user?.pokemon">
+    <h3>Welcome {{name}} </h3>
+    <div class="list-group" *ngIf="!len">
       <a class="list-group-item list-group-item-action active">
         You Havent Capured any pokemons yet...🤏😂
       </a>
     </div>
 
-    <div class="list-group pokemon-list-card" *ngIf="user?.pokemon">
-      <a class="list-group-item list-group-item-action active">Captured pokemons 🐿🦎🐊🐢🐘🐐</a>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let pokemon of user?.pokemon">
-            <td class="list-group-item list-group-item-action pokemon-list-item">
-              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png"
-                width="50px" alt="pokemon">
-              {{ pokemon }}
-              <button class="btn btn-sm remove-favourite-button">❤</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="list-group pokemon-list-card" *ngIf="len">
+      <form>
+        <a class="list-group-item list-group-item-action active">Captured pokemons 🐿🦎🐊🐢🐘🐐</a>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pokemon of user?.pokemon">
+              <td class="list-group-item list-group-item-action pokemon-list-item">
+                <img [src]="pokemon.picture" width="50px" alt="pokemon">
+                {{ pokemon.name }}
+                <app-unfavourite-button [pokemonName]="pokemon"></app-unfavourite-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </form>
+
     </div>
 
   </div>

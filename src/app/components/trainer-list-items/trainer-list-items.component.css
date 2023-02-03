@@ -1,15 +1,3 @@
 .pokemon-list-card {
   padding: 1rem;
 }
-.remove-favourite-button {
-  float: right;
-  margin-top: 10px;
-  background-color: rgb(228, 51, 81);
-
-  box-shadow: 1px 1px 4px black;
-  border-style: none;
-}
-.remove-favourite-button:hover {
-  background-color: white;
-  transition: 0.3s;
-}

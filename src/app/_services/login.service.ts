@@ -59,23 +59,12 @@ export class LoginService {
         })
       );
   }
-
   //this is called from app component.ts
   setCurrentUser(user: User) {
     this.currentUserSource.next(user);
   }
   logout() {
     StorageUtil.storageRemove(StorageKeys.User);
-    this.currentUserSource.next(null);
   }
 }
-/*
-38 line for safety
-  // if (user) {
-        //   this.currentUserSource.next(user); //can use this for auth
-        // }
-60 line for safety
-          // if (user) {
-          //   this.currentUserSource.next(user);
-          // }
-*/
+
