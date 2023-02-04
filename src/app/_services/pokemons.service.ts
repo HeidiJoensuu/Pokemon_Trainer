@@ -33,9 +33,32 @@ export class PokemonsService {
     return asd;
   }
 
-  public fetchPokemonPictures(poke: Pokemon[]): void {
+  private findPicture = (pokemon: Pokemon): Pokemon => {
+    if (!pokemon.picture) {     
+      this.http.get(pokemon.url)
+      .pipe(
+        map(result => result)
+      ).subscribe({
+        next: (answer) => {
+          //@ts-ignore
+          let picture = answer.sprites?.other?.dream_world?.front_default
+          let pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+          const index = pokemonList.findIndex((e: { name: string; }) => e.name ===pokemon.name)
+          pokemonList[index].picture = picture
+          pokemon.picture = picture
+          return pokemon
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error.message);
+        }
+      })
+    }
+    return pokemon
+  }
+
+  public fetchPokemonPictures(pokemons: Pokemon[]): void {
     let showingPokemons: Pokemon[] = []
-    poke.forEach((element: Pokemon) => {
+    pokemons.forEach((element: Pokemon) => {
       if (!element.picture) {     
         this.http.get(element.url)
         .pipe(
@@ -58,9 +81,20 @@ export class PokemonsService {
           }
         })
       } else {
-        this._showingPokemons$.next(poke)
+        this._showingPokemons$.next(pokemons)
       }
     })
+  }
+
+  public fetchPokemonPicturesW2 = (pokemons: string[]): Pokemon[] =>  {
+    const showingPokemons: Pokemon[] = []
+    const pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+    pokemons.forEach((element: string) => {
+      let currentPokemon: Pokemon = pokemonList.find((poke: Pokemon) => poke.name === element)
+      currentPokemon = this.findPicture(currentPokemon)
+      showingPokemons.push(currentPokemon)
+    })
+    return showingPokemons
   }
   
   public get showingPokemons$() : Observable<Pokemon[]> {

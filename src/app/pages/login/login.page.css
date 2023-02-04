@@ -1,0 +1,10 @@
+.loginPageSummary {
+  background-color: rgba(104, 109, 195, 0.3);
+  box-shadow: 1px 1px 5px black;
+
+  padding: 2rem;
+}
+.loginPageSummary:hover {
+  background-color: rgba(104, 109, 195, 0.6);
+  transition: 0.3s;
+}

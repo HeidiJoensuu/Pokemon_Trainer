@@ -18,10 +18,7 @@ export class NavbarComponent implements OnInit {
     private readonly router: Router
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.user);
-    
-  }
+  ngOnInit(): void {}
   
   get user() {
     return this.userService.user$;

@@ -1,1 +1,9 @@
-<app-login-form (login)="handleLogin()"></app-login-form>
+<ng-container >
+  <div class="group-flow loginPageSummary" *ngIf="userCurrent">
+   <app-login-page-alt></app-login-page-alt>
+  </div>
+  <div *ngIf="!userCurrent">
+    <app-login-form (login)="handleLogin()"></app-login-form>
+  </div>
+
+</ng-container>

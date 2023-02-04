@@ -15,6 +15,9 @@ import { ProfilePage } from './pages/profile/profile.page';
 import { ErrorPage } from './pages/error/error.page';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TrainerListItemsComponent } from './components/trainer-list-items/trainer-list-items.component';
+import { LoginPageAltComponent } from './components/login-page-alt/login-page-alt.component';
+import { UnfavouriteButtonComponent } from './components/unfavourite-button/unfavourite-button.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     PokemonCatalogueComponent,
     ProfilePage,
     ErrorPage,
-    NavbarComponent
+    NavbarComponent,
+    TrainerListItemsComponent,
+    LoginPageAltComponent,
+    UnfavouriteButtonComponent
   ],
   imports: [
     BrowserModule,

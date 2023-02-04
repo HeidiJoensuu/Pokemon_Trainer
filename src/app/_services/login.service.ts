@@ -61,13 +61,4 @@ export class LoginService {
     StorageUtil.storageRemove(StorageKeys.User);
   }
 }
-/*
-38 line for safety
-  // if (user) {
-        //   this.currentUserSource.next(user); //can use this for auth
-        // }
-60 line for safety
-          // if (user) {
-          //   this.currentUserSource.next(user);
-          // }
-*/
+
