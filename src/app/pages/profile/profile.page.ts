@@ -14,11 +14,11 @@ export class ProfilePage implements OnInit {
     private readonly userService: UserService
   ) {}
 
-  ngOnInit(): void {}
-  get userCurrent() {
-    return this.loginService.currentUser$;
+  ngOnInit(): void {
+    this.user
   }
+
   get user() {
-    return this.userService.user;
+    return this.userService.user$;
   }
 }

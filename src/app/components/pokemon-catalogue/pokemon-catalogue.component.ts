@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Pokemon } from 'src/app/_models/pokemon.model';
 import { PokemonsService } from 'src/app/_services/pokemons.service';
+import { UserService } from 'src/app/_services/user.service';
 import { Component } from '@angular/core';
 import { DecimalPipe, NgFor } from '@angular/common';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -9,8 +10,9 @@ import {
   NgbPaginationModule,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { ObjectUnsubscribedError, Observable } from 'rxjs';
 import { take, map, tap, startWith, filter } from 'rxjs/operators';
+import { LoginService } from 'src/app/_services/login.service';
 
 @Component({
   selector: 'app-pokemon-catalogue',
@@ -23,11 +25,14 @@ export class PokemonCatalogueComponent implements OnInit {
   collectionSize = 1279;
   showingPokemons: Pokemon[] = [];
 
-  constructor(private readonly pokemonsService: PokemonsService) {}
+  constructor(
+    private readonly pokemonsService: PokemonsService,
+    private readonly userService: UserService,
+  ) {}
 
   ngOnInit(): void {
-    this.pokemonsService.fetchPokemons();
-    this.refresPage();
+    //(Maybe in future) This variable for combineLatest -pipe operator
+    const asd = this.pokemonsService.fetchPokemons();
     this.refreshPokemons();
   }
 
@@ -48,5 +53,15 @@ export class PokemonCatalogueComponent implements OnInit {
   refreshPokemons() {
     this.refresPage();
     this.pokemonsService.fetchPokemonPictures(this.showingPokemons);
+  }
+
+  catchPokemon(pokemon: string) {
+    this.userService.user$.pipe(take(1)).subscribe((user)=> {
+      if(user.id && user.pokemon){
+        const listCatchedPokemons: string[] = [...user.pokemon]
+        listCatchedPokemons.push(pokemon)
+        this.userService.patchPokemon(listCatchedPokemons, user)
+      }
+    })
   }
 }

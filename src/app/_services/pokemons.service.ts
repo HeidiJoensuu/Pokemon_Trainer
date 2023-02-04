@@ -13,11 +13,13 @@ export class PokemonsService {
   private readonly _pokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
   private readonly _showingPokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
 
-  public fetchPokemons(): void {
-    this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+  public fetchPokemons(): Observable<Pokemon[]> {
+    const asd = this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
     .pipe(
       map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
-    ).subscribe({
+    )
+    
+    asd.subscribe({
       next: (pokemons: Pokemon[]) => {
         if (!(window.sessionStorage.getItem('pokemons'))) {
           this._pokemons$.next(pokemons)
@@ -28,6 +30,7 @@ export class PokemonsService {
         console.log(error.message);
       }
     })
+    return asd;
   }
 
   public fetchPokemonPictures(poke: Pokemon[]): void {

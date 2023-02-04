@@ -3,6 +3,7 @@ import { CanActivate, Route, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { LoginService } from '../_services/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../_services/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly loginservice: LoginService,
+    private readonly userService: UserService,
     private toastr: ToastrService,
     private readonly router: Router
   ) {}
   canActivate(): Observable<boolean> {
-    return this.loginservice.currentUser$.pipe(
+    return this.userService.user$.pipe(
       map((user) => {
         if (user) {
           return true;
