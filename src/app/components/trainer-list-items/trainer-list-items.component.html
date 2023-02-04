@@ -1,14 +1,14 @@
 <ng-container>
 
   <div>
-    <h3>Welcome {{name}} </h3>
-    <div class="list-group" *ngIf="!len">
+    <h3>Welcome {{(user | async)?.username}} </h3>
+    <div class="list-group" *ngIf="!(user | async)?.pokemon?.length">
       <a class="list-group-item list-group-item-action active">
         You Havent Capured any pokemons yet...🤏😂
       </a>
     </div>
 
-    <div class="list-group pokemon-list-card" *ngIf="len">
+    <div class="list-group pokemon-list-card" *ngIf="(user | async)?.pokemon?.length">
       <form>
         <a class="list-group-item list-group-item-action active">Captured pokemons 🐿🦎🐊🐢🐘🐐</a>
         <table class="table table-striped">
@@ -18,13 +18,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let pokemon of user?.pokemon">
-              <td class="list-group-item list-group-item-action pokemon-list-item">
-                <img [src]="pokemon.picture" width="50px" alt="pokemon">
-                {{ pokemon.name }}
-                <app-unfavourite-button [pokemonName]="pokemon"></app-unfavourite-button>
-              </td>
-            </tr>
+              <tr *ngFor="let pokemon of pokemons">
+                <td class="list-group-item list-group-item-action pokemon-list-item">
+                  <img [src]="pokemon.picture" width="50px" alt="picture">
+                  {{ pokemon.name }}
+                  <button (click)="handleUnfavouriteClick(pokemon.name)" class="btn btn-sm remove-favourite-button">💔</button>
+                </td>
+              </tr>
           </tbody>
         </table>
 

@@ -17,19 +17,16 @@ export class UnfavouriteService {
   ) {}
   //-----------------fetch
 
-  public removeFromFavourites(
-    pokemonName: string | undefined
-  ): Observable<User> {
-    const user: User | undefined = this.userService.user;
-    const pokemon: User | undefined = this.userService.user;
-    console.log('pokemon ', pokemonName, 'User: ', user);
+  public removeFromFavourites(pokemonName: string, user: User): void {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
     });
-
+    console.log(pokemonName, user);
+    
+/*
     if (
-      !user?.pokemon.find((pokemon: Pokemon) => pokemon.name === pokemonName)
+      !(user)?.pokemon.find((pokemon: Pokemon, user: User) => pokemon.name === pokemonName)
     ) {
       throw new Error('add to user: There is no user');
     } else {
@@ -54,6 +51,7 @@ export class UnfavouriteService {
           })
         );
     }
+    */
     //check user > PATCH
   }
 }

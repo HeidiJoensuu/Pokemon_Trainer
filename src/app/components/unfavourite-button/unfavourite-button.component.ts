@@ -3,6 +3,8 @@ import { Pokemon } from '../../_models/pokemon.model';
 import { User } from '../../_models/user.model';
 import { UnfavouriteService } from '../../_services/unfavourite.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/app/_services/user.service';
+import { take } from "rxjs";
 
 @Component({
   selector: 'app-unfavourite-button',
@@ -11,18 +13,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UnfavouriteButtonComponent implements OnInit {
   @Input() pokemonName?: Pokemon;
-  constructor(private unfavouriteService: UnfavouriteService) {}
+  constructor(private unfavouriteService: UnfavouriteService,private readonly userService: UserService) {}
 
   ngOnInit(): void {}
   get pokemon() {
     return this.pokemonName?.name;
   }
   handleUnfavouriteClick(): void {
-    this.unfavouriteService.removeFromFavourites(this.pokemon).subscribe({
-      next: (response: User) => {
-        console.log('Next ', response);
-      },
-      error: (err: HttpErrorResponse) => console.log(err.message),
-    });
+    this.userService.user$.pipe(take(1)).subscribe(user => {
+      //this.unfavouriteService.removeFromFavourites(this.pokemonName, user)
+    })
   }
 }

@@ -11,8 +11,14 @@ import { User } from '../../_models/user.model';
 export class ProfilePage implements OnInit {
   
   constructor(
+    private readonly userService: UserService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user
+  }
 
+  get user() {
+    return this.userService.user$;
+  }
 }
