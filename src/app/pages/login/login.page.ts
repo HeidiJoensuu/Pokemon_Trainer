@@ -21,6 +21,6 @@ export class LoginPage {
   }
   handleLogin(): void {
     this.toastr.success('Successfully logged in.');
-    this.router.navigateByUrl('/profile');
+    this.router.navigateByUrl('/catalogue');
   }
 }

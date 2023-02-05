@@ -3,6 +3,7 @@ import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../_services/user.service';
+import { AsyncPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +12,19 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly userService: UserService,
     private toastr: ToastrService,
-    private readonly router: Router,
+    private readonly router: Router
   ) {}
-  canActivate(): 
-    Observable<boolean | UrlTree>
+  canActivate():
+    | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
     return this.userService.user$.pipe(
       map((user) => {
-        if (user) {
+        if (user.id) {
           return true;
         } else {
-          this.toastr.error('You shall not pass ❌');
+          this.toastr.error('You shall not pass 🧙‍♂️');
           this.router.navigateByUrl('/');
           return false;
         }

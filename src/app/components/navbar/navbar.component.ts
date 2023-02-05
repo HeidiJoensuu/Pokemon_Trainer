@@ -19,14 +19,15 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  
+
   get user() {
-    return this.userService.user$;
+    return StorageUtil.storageRead(StorageKeys.User);
+    // return this.userService.user$;
   }
 
-  //logout check 
+  //logout check
   logout() {
-    this.loginService.logout();
+    StorageUtil.storageRemove(StorageKeys.User);
     this.router.navigateByUrl('/');
   }
 }
