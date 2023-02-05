@@ -1,4 +1,7 @@
-
 .pokemon-list-item:hover {
   cursor: grab;
+}
+
+.userName {
+  text-transform: capitalize;
 }

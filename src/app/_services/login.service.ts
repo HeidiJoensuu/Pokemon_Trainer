@@ -20,10 +20,12 @@ export class LoginService {
 
   //! 1) login function checks  exists or undefined > switch regarding to that
   public login(username: string): Observable<User> {
-    return this.checkUsername(username).pipe(
+    const usernameTolower = username.toLowerCase();
+    return this.checkUsername(usernameTolower).pipe(
       switchMap((user: User | undefined) => {
         if (user === undefined) {
-          return this.createUser(username);
+          console.log('in login: ', usernameTolower);
+          return this.createUser(usernameTolower);
         }
         return of(user);
       })
@@ -31,6 +33,7 @@ export class LoginService {
   }
   //GET //pop the last item on array and return
   private checkUsername(username: string): Observable<User | undefined> {
+    console.log('checks username: ', username);
     return this.http.get<User[]>(`${apiPokemon}?username=${username}`).pipe(
       map((response: User[]) => {
         return response.pop();
@@ -39,6 +42,7 @@ export class LoginService {
   }
   //POST
   private createUser(username: string) {
+    console.log('creates user: ', username);
     //create user object
     const user = {
       username,
@@ -67,4 +71,3 @@ export class LoginService {
     StorageUtil.storageRemove(StorageKeys.User);
   }
 }
-
