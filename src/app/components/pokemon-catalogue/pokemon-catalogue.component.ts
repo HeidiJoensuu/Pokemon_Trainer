@@ -10,9 +10,10 @@ import {
   NgbPaginationModule,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { ObjectUnsubscribedError, Observable } from 'rxjs';
-import { take, map, tap, startWith, filter } from 'rxjs/operators';
+import { BehaviorSubject, ObjectUnsubscribedError, Observable, of } from 'rxjs';
+import { take, map, tap, startWith, filter, find, switchMap, catchError } from 'rxjs/operators';
 import { LoginService } from 'src/app/_services/login.service';
+import { User } from 'src/app/_models/user.model';
 
 @Component({
   selector: 'app-pokemon-catalogue',
@@ -24,6 +25,7 @@ export class PokemonCatalogueComponent implements OnInit {
   pageSize = 10;
   collectionSize = 1279;
   showingPokemons: Pokemon[] = [];
+  caughtPokemon: boolean = false
 
   constructor(
     private readonly pokemonsService: PokemonsService,
@@ -40,12 +42,30 @@ export class PokemonCatalogueComponent implements OnInit {
     return this.pokemonsService.showingPokemons$;
   }
 
+  public caught(pokemon: string): boolean {
+    this.userService.user$.pipe(
+      switchMap((user: User): any => {
+        if (user?.pokemon?.includes(pokemon)) this.caughtPokemon = true
+        else this.caughtPokemon = false
+        return this.caughtPokemon
+      }),
+      catchError(err => of(err))
+      ).subscribe().unsubscribe()
+      return this.caughtPokemon
+
+  }
+
   private refresPage = () => {
     const result = this.pokemonsService.pokemons$.subscribe((pokemons) => {
-      this.showingPokemons = pokemons.slice(
-        (this.page - 1) * this.pageSize,
-        this.page * this.pageSize
-      );
+      try {
+        this.showingPokemons = pokemons.slice(
+          (this.page - 1) * this.pageSize,
+          this.page * this.pageSize
+        );
+      } catch (error) {
+        console.log(error);
+        
+      }
     });
     result.unsubscribe();
   };

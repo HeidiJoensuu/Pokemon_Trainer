@@ -18,6 +18,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrainerListItemsComponent } from './components/trainer-list-items/trainer-list-items.component';
 import { LoginPageAltComponent } from './components/login-page-alt/login-page-alt.component';
 import { UnfavouriteButtonComponent } from './components/unfavourite-button/unfavourite-button.component';
+import { CataloguePage } from './pages/catalogue/catalogue.page';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UnfavouriteButtonComponent } from './components/unfavourite-button/unfa
     NavbarComponent,
     TrainerListItemsComponent,
     LoginPageAltComponent,
-    UnfavouriteButtonComponent
+    UnfavouriteButtonComponent,
+    CataloguePage,
   ],
   imports: [
     BrowserModule,

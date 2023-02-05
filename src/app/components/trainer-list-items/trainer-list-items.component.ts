@@ -30,7 +30,6 @@ export class TrainerListItemsComponent implements OnInit {
     return this.userService.user$;
   }
 
-
   pokemonsPictures(){
     return this.userService.user$.pipe(take(1)).subscribe((user) => {
       if (user.pokemon) return this.pokemons =  this.pokemonService.fetchPokemonPicturesW2(user.pokemon)
@@ -38,14 +37,10 @@ export class TrainerListItemsComponent implements OnInit {
     })
   }
 
-  handleRemoveClick(removeForm: NgForm) {
-    const { pokemon } = removeForm.value;
-    console.log(pokemon);
-    console.log('clicked');
-  }
   handleUnfavouriteClick(pokemonName: string): void {
     this.userService.user$.pipe(take(1)).subscribe(user => {
       this.unfavouriteService.removeFromFavourites(pokemonName, user)
+      this.pokemonsPictures()
     })
   }
 }
