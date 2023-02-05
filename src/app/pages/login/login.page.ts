@@ -17,7 +17,7 @@ export class LoginPage {
     private toastr: ToastrService  ) {}
 
   get userCurrent(): boolean {
-    return Boolean(StorageUtil.storageRead<User>(StorageKeys.User))
+    return Boolean((StorageUtil.storageRead<User>(StorageKeys.User)).username !==  "")
   }
   handleLogin(): void {
     this.toastr.success('Successfully logged in.');

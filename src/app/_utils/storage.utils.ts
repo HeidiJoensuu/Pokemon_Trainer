@@ -5,16 +5,16 @@ export class StorageUtil {
     localStorage.setItem(key, JSON.stringify(value));
   }
   //read user
-  public static storageRead<T>(key: string): T | undefined {
+  public static storageRead<T>(key: string): {id?: number, username: string, pokemon?: string[]} {
     const storedValue = localStorage.getItem(key);
     try {
       if (storedValue) {
-        return JSON.parse(storedValue) as T;
+        return JSON.parse(storedValue);
       }
-      return undefined;
+      return {username: ''};
     } catch (error) {
       localStorage.removeItem(key);
-      return undefined;
+      return {username: ''};
     }
   }
   //remove user

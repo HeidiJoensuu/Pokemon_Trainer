@@ -12,9 +12,6 @@ const { apiKey, apiPokemon } = environment;
   providedIn: 'root',
 })
 export class LoginService {
-  //for our login auth > if this is null no authorization
-  private currentUserSource = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSource.asObservable(); //our observable aka context
   //inject http here
   constructor(private readonly http: HttpClient) {}
 
@@ -63,10 +60,7 @@ export class LoginService {
         })
       );
   }
-  //this is called from app component.ts
-  setCurrentUser(user: User) {
-    this.currentUserSource.next(user);
-  }
+
   logout() {
     StorageUtil.storageRemove(StorageKeys.User);
   }

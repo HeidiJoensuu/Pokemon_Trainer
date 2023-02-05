@@ -1,0 +1,23 @@
+.catch-button {
+    float: right;
+    margin-top: 10px;
+    background-color: rgb(222, 248, 249);
+    color: black;
+  
+    box-shadow: 1px 1px 4px black;
+    border-style: none;
+  }
+
+.pokemon-list-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+    .pokemon-list-card {
+        padding-left: 20%;
+    }
+}
