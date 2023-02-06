@@ -4,7 +4,7 @@
     <h3>Welcome {{(user | async)?.username}} </h3>
     <div class="list-group" *ngIf="!(user | async)?.pokemon?.length">
       <a class="list-group-item list-group-item-action active">
-        You Havent Capured any pokemons yet...🤏😂
+        You Havent Captured any pokemons yet...🤏😂
       </a>
     </div>
 
@@ -20,8 +20,12 @@
           <tbody>
               <tr *ngFor="let pokemon of pokemons">
                 <td class="list-group-item list-group-item-action pokemon-list-item">
-                  <img [src]="pokemon.picture" width="50px" alt="picture">
-                  {{ pokemon.name }}
+                  <div class="pokemon-info-item">
+                    <div class="image-container">
+                      <img *ngIf="pokemon.picture !== ''" [src]="pokemon.picture" width="50px" alt="notFound">
+                    </div>
+                    {{ pokemon.name }}
+                </div>
                   <button (click)="handleUnfavouriteClick(pokemon.name)" class="btn btn-sm remove-favourite-button">💔</button>
                 </td>    
               </tr>

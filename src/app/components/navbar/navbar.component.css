@@ -1,0 +1,8 @@
+.links {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    min-width: 275px;
+    justify-content: space-evenly;
+    margin-right: auto;
+}
