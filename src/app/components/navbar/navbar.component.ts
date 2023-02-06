@@ -11,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  //make it public for our html so we can use ternary operation
   constructor(
     public loginService: LoginService,
     public userService: UserService,
@@ -22,12 +21,14 @@ export class NavbarComponent implements OnInit {
 
   get user() {
     return StorageUtil.storageRead(StorageKeys.User);
-    // return this.userService.user$;
+
   }
 
-  //logout check
+/**
+ * Logout removes data of user from local storage and redirects to login
+ */
   logout() {
     StorageUtil.storageRemove(StorageKeys.User);
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 }

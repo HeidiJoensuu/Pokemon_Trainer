@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user.service';
-import { finalize, findIndex, Observable, tap, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
-import { Pokemon } from '../models/pokemon.model';
 
 const { apiKey, apiPokemon } = environment;
 @Injectable({
@@ -16,7 +14,11 @@ export class UnfavouriteService {
     private readonly userService: UserService
   ) {}
 
-
+  /**
+   * Finds matching pokemon name from user object if so then remove it with PATCH
+   * @param pokemonName 
+   * @param user 
+   */
   public removeFromFavourites(pokemonName: string, user: User): any {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,6 +44,5 @@ export class UnfavouriteService {
           })
       }
     }
-    //check user > PATCH
   }
 }

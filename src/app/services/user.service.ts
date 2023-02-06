@@ -8,7 +8,7 @@ import {
 import { StorageUtil } from '../utils/storage.utils';
 import { StorageKeys } from '../enums/storage-keys';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const { apiKey, apiPokemon } = environment;
 //saving the user
@@ -35,6 +35,11 @@ export class UserService {
     this._user$.next(StorageUtil.storageRead<User>(StorageKeys.User));
   }
 
+  /**
+   * patches current users pokemon list with new pokemon
+   * @param pokemon : string
+   * @param user : User
+   */
   public patchPokemon(pokemon: string[], user: User): void {
     const newPokemon = JSON.stringify({ pokemon: pokemon });
     const headers = new HttpHeaders({

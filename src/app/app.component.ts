@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageKeys } from './enums/storage-keys';
 import { User } from './models/user.model';
-import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +10,14 @@ import { LoginService } from './services/login.service';
 export class AppComponent implements OnInit {
   title = 'Pokemon_Trainer';
 
-
-  constructor(private readonly loginService: LoginService){}
+  constructor(){}
   ngOnInit(): void {
     this.setCurrentUser()
   }
+  /**
+   * when app runs call this and if user exists already in storage return it 
+   * @returns user : User
+   */
   setCurrentUser() {
     const userString = localStorage.getItem(StorageKeys.User);
     if (!userString) return;
