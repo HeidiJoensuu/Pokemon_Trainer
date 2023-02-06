@@ -1,10 +1,20 @@
 //one class of storage utilities
 export class StorageUtil {
-  //save user
+  
+  /**
+   * Save user to localStorage
+   * @param key  : string 
+   * @param value  : T
+   */
   public static storageSave<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
-  //read user
+  
+  /**
+   * Read user data from storage
+   * @param key :string
+   * @returns user object
+   */
   public static storageRead<T>(key: string): {id?: number, username: string, pokemon?: string[]} {
     const storedValue = localStorage.getItem(key);
     try {
@@ -17,7 +27,10 @@ export class StorageUtil {
       return {username: ''};
     }
   }
-  //remove user
+  /**
+   * remove user when logout
+   * @param key : string
+   */
   public static storageRemove(key: string): void {
     localStorage.removeItem(key)
   }

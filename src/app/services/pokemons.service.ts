@@ -5,7 +5,7 @@ import { Pokemon } from '../models/pokemon.model';
 import { StorageKeys } from '../enums/storage-keys';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -79,15 +79,15 @@ export class PokemonsService {
         }
       })
     }
-    return pokemon
-  }
+    return pokemon;
+  };
 
   /**
    * Finds url's for pokemon pictures and saves them
    * @param pokemons [{name: string, url: string, picture?: string}]
    */
   public fetchPokemonPictures(pokemons: Pokemon[]): void {
-    let showingPokemons: Pokemon[] = []
+    let showingPokemons: Pokemon[] = [];
     pokemons.forEach((element: Pokemon) => {
       if (!element.picture) {     
         this.http.get(element.url)
@@ -112,9 +112,9 @@ export class PokemonsService {
           }
         })
       } else {
-        this._showingPokemons$.next(pokemons)
+        this._showingPokemons$.next(pokemons);
       }
-    })
+    });
   }
 
   /**
@@ -149,9 +149,8 @@ export class PokemonsService {
     this._pokemons$.next(JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}'))
     return this._pokemons$.asObservable()
   }
-
 }
 
 interface PokemonsResponse {
-  results: Pokemon[]
+  results: Pokemon[];
 }

@@ -1,10 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { User } from '../../models/user.model';
 import { Pokemon } from 'src/app/models/pokemon.model';
-import { pipe, take, tap, window } from "rxjs";
+import { take } from "rxjs";
 import { UnfavouriteService } from 'src/app/services/unfavourite.service';
 import { PokemonsService } from 'src/app/services/pokemons.service';
 
@@ -14,7 +11,7 @@ import { PokemonsService } from 'src/app/services/pokemons.service';
   styleUrls: ['./trainer-list-items.component.css'],
 })
 export class TrainerListItemsComponent implements OnInit {
-  pokemons: Pokemon[] | [] = []
+  pokemons: Pokemon[] | [] = [];
   constructor(
     private readonly userService: UserService,
     private readonly unfavouriteService: UnfavouriteService,
@@ -22,25 +19,34 @@ export class TrainerListItemsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user
-    this.pokemonsPictures()
+    this.user;
+    this.pokemonsPictures();
   }
 
   get user() {
     return this.userService.user$;
   }
-
-  pokemonsPictures(){
+/**
+ * If theres no pictures fetch from api
+ * @returns []
+ */
+  pokemonsPictures() {
     return this.userService.user$.pipe(take(1)).subscribe((user) => {
-      if (user.pokemon) return this.pokemons =  this.pokemonService.fetchPokemonPicturesW2(user.pokemon)
-      return this.pokemons =  []
-    })
+      if (user.pokemon)
+        return (this.pokemons = this.pokemonService.fetchPokemonPicturesW2(
+          user.pokemon
+        ));
+      return (this.pokemons = []);
+    });
   }
-
+  /**
+   * call userService user$ and pass pokemonName and user to removeFromFavourites
+   * @param pokemonName : string
+   */
   handleUnfavouriteClick(pokemonName: string): void {
-    this.userService.user$.pipe(take(1)).subscribe(user => {
-      this.unfavouriteService.removeFromFavourites(pokemonName, user)
-      this.pokemonsPictures()
-    })
+    this.userService.user$.pipe(take(1)).subscribe((user) => {
+      this.unfavouriteService.removeFromFavourites(pokemonName, user);
+      this.pokemonsPictures();
+    });
   }
 }

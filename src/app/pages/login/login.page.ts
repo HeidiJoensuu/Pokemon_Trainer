@@ -11,16 +11,19 @@ import { StorageKeys } from '../../enums/storage-keys';
   styleUrls: ['./login.page.css'],
 })
 export class LoginPage {
-  //LOGIN PAGE HANDLES REDIRECTION -> login form -> logic
-  constructor(
-    private readonly router: Router,
-    private toastr: ToastrService  ) {}
+  constructor(private readonly router: Router, private toastr: ToastrService) {}
 
   get userCurrent(): boolean {
-    return Boolean((StorageUtil.storageRead<User>(StorageKeys.User)).username !==  "")
+    return Boolean(
+      StorageUtil.storageRead<User>(StorageKeys.User).username !== ''
+    );
   }
+
+  /**
+   * handles navigation after successful login
+   */
   handleLogin(): void {
     this.toastr.success('Successfully logged in.');
-    this.router.navigateByUrl('/catalogue');
+    this.router.navigateByUrl('/');
   }
 }

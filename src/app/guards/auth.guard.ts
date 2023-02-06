@@ -8,12 +8,18 @@ import { AsyncPipe } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly userService: UserService,
     private toastr: ToastrService,
     private readonly router: Router
   ) {}
+  /**
+   * blocks access from urls if user has no ID
+   * @returns boolean
+   */
   canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
