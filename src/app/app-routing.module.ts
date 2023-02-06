@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { ProfilePage } from './pages/profile/profile.page';
 import { AuthGuard } from './guards/auth.guard';
-import { CataloguePage } from "./pages/catalogue/catalogue.page";
+import { CataloguePage } from './pages/catalogue/catalogue.page';
 
 /**
  * Routes for our spa
@@ -11,14 +11,14 @@ import { CataloguePage } from "./pages/catalogue/catalogue.page";
  *path:"" = this dummy root will always protect other root 1auth guard for all roots
  */
 const routes: Routes = [
-
-  { path: '', component: LoginPage },
-  { path: '',
+  { path: 'login', component: LoginPage },
+  {
+    path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      {path: 'profile', component: ProfilePage },
-      {path: '/', component: CataloguePage}
+      { path: 'profile', component: ProfilePage },
+      { path: '', component: CataloguePage },
     ],
   },
   { path: '**', component: LoginPage, pathMatch: 'full' },

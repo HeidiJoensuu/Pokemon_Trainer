@@ -11,13 +11,12 @@ import { StorageKeys } from '../../enums/storage-keys';
   styleUrls: ['./login.page.css'],
 })
 export class LoginPage {
-  constructor(
-    private readonly router: Router,
-    private toastr: ToastrService  ) {}
+  constructor(private readonly router: Router, private toastr: ToastrService) {}
 
-  
   get userCurrent(): boolean {
-    return Boolean((StorageUtil.storageRead<User>(StorageKeys.User)).username !==  "")
+    return Boolean(
+      StorageUtil.storageRead<User>(StorageKeys.User).username !== ''
+    );
   }
 
   /**
@@ -25,6 +24,6 @@ export class LoginPage {
    */
   handleLogin(): void {
     this.toastr.success('Successfully logged in.');
-    this.router.navigateByUrl('/catalogue');
+    this.router.navigateByUrl('/');
   }
 }

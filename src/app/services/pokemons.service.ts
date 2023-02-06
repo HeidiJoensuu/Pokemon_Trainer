@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, map, Observable} from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
 
 @Injectable({
@@ -87,13 +87,7 @@ export class PokemonsService {
               );
 
               pokemonList[index].picture = picture;
-              pokemonList[index].stats = stats;
-              pokemonList[index].abilities = abilities;
-
               element.picture = picture;
-              element.abilities = abilities;
-              element.stats = stats;
-
               showingPokemons.push(element);
 
               window.sessionStorage.setItem(

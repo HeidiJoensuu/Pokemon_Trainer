@@ -12,7 +12,6 @@ import { PokemonsService } from 'src/app/services/pokemons.service';
 })
 export class TrainerListItemsComponent implements OnInit {
   pokemons: Pokemon[] | [] = [];
-  stats: any = this.pokemons.map((a) => a.stats);
   constructor(
     private readonly userService: UserService,
     private readonly unfavouriteService: UnfavouriteService,

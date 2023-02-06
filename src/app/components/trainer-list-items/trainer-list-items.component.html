@@ -23,13 +23,7 @@
                   <img [src]="pokemon.picture" width="50px" alt="picture">
                   {{ pokemon.name }}
                   <button (click)="handleUnfavouriteClick(pokemon.name)" class="btn btn-sm remove-favourite-button">💔</button>
-                </td>
-                  <ul>
-                    <li *ngFor="let stat of stats">
-                        {{stat}}
-                    </li>
-                  </ul>
-      
+                </td>    
               </tr>
           </tbody>
         </table>
