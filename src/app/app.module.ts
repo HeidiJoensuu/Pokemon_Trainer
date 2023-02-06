@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NgbTooltipModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTooltipModule,
+  NgbPaginationModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { PokemonCatalogueComponent } from './components/pokemon-catalogue/pokemon-catalogue.component';
 import { LoginPage } from './pages/login/login.page';
@@ -16,9 +19,8 @@ import { ProfilePage } from './pages/profile/profile.page';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrainerListItemsComponent } from './components/trainer-list-items/trainer-list-items.component';
-import { LoginPageAltComponent } from './components/login-page-alt/login-page-alt.component';
-import { CataloguePage } from './pages/catalogue/catalogue.page';
 
+import { CataloguePage } from './pages/catalogue/catalogue.page';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { CataloguePage } from './pages/catalogue/catalogue.page';
 
     NavbarComponent,
     TrainerListItemsComponent,
-    LoginPageAltComponent,
+
     CataloguePage,
   ],
   imports: [

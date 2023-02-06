@@ -11,14 +11,14 @@ import { CataloguePage } from './pages/catalogue/catalogue.page';
  *path:"" = this dummy root will always protect other root 1auth guard for all roots
  */
 const routes: Routes = [
-  { path: 'login', component: LoginPage },
+  { path: '', component: LoginPage },
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       { path: 'profile', component: ProfilePage },
-      { path: '', component: CataloguePage },
+      // { path: '', component: CataloguePage },
     ],
   },
   { path: '**', component: LoginPage, pathMatch: 'full' },
