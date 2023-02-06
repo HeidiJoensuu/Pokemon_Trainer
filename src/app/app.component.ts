@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageKeys } from './_enums/storage-keys';
-import { User } from './_models/user.model';
-import { LoginService } from './_services/login.service';
+import { StorageKeys } from './enums/storage-keys';
+import { User } from './models/user.model';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',

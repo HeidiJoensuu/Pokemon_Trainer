@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrainerListItemsComponent } from './components/trainer-list-items/trainer-list-items.component';
 import { LoginPageAltComponent } from './components/login-page-alt/login-page-alt.component';
-import { UnfavouriteButtonComponent } from './components/unfavourite-button/unfavourite-button.component';
 import { CataloguePage } from './pages/catalogue/catalogue.page';
 
 
@@ -32,7 +31,6 @@ import { CataloguePage } from './pages/catalogue/catalogue.page';
     NavbarComponent,
     TrainerListItemsComponent,
     LoginPageAltComponent,
-    UnfavouriteButtonComponent,
     CataloguePage,
   ],
   imports: [

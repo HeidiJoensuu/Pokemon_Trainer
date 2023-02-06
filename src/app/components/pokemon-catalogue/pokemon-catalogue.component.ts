@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Pokemon } from 'src/app/_models/pokemon.model';
-import { PokemonsService } from 'src/app/_services/pokemons.service';
-import { UserService } from 'src/app/_services/user.service';
+import { Pokemon } from 'src/app/models/pokemon.model';
+import { PokemonsService } from 'src/app/services/pokemons.service';
+import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
 import { DecimalPipe, NgFor } from '@angular/common';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -12,8 +12,8 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, ObjectUnsubscribedError, Observable, of } from 'rxjs';
 import { take, map, tap, startWith, filter, find, switchMap, catchError } from 'rxjs/operators';
-import { LoginService } from 'src/app/_services/login.service';
-import { User } from 'src/app/_models/user.model';
+import { LoginService } from 'src/app/services/login.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-pokemon-catalogue',

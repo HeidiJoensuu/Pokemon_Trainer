@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginService } from 'src/app/_services/login.service';
-import { UserService } from 'src/app/_services/user.service';
-import { User } from '../../_models/user.model';
-import { Pokemon } from 'src/app/_models/pokemon.model';
+import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from '../../models/user.model';
+import { Pokemon } from 'src/app/models/pokemon.model';
 import { pipe, take, tap, window } from "rxjs";
-import { UnfavouriteService } from 'src/app/_services/unfavourite.service';
-import { PokemonsService } from 'src/app/_services/pokemons.service';
+import { UnfavouriteService } from 'src/app/services/unfavourite.service';
+import { PokemonsService } from 'src/app/services/pokemons.service';
 
 @Component({
   selector: 'app-trainer-list-items',

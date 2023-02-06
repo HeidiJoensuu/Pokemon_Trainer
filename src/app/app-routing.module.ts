@@ -4,7 +4,7 @@ import { PokemonCatalogueComponent } from './components/pokemon-catalogue/pokemo
 import { ErrorPage } from './pages/error/error.page';
 import { LoginPage } from './pages/login/login.page';
 import { ProfilePage } from './pages/profile/profile.page';
-import { AuthGuard } from './_guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { CataloguePage } from "./pages/catalogue/catalogue.page";
 
 const routes: Routes = [

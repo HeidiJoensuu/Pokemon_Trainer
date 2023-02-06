@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, map, Observable} from 'rxjs';
-import { Pokemon } from '../_models/pokemon.model';
+import { Pokemon } from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +87,8 @@ export class PokemonsService {
   }
 
   public fetchPokemonPicturesW2 = (pokemons: string[]): Pokemon[] =>  {
+    console.log(pokemons);
+    
     const showingPokemons: Pokemon[] = []
     const pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
     pokemons.forEach((element: string) => {

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { User } from '../_models/user.model';
+import { User } from '../models/user.model';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { StorageUtil } from '../_utils/storage.utils';
-import { StorageKeys } from '../_enums/storage-keys';
+import { StorageUtil } from '../utils/storage.utils';
+import { StorageKeys } from '../enums/storage-keys';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 

@@ -6,9 +6,9 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginService } from '../../_services/login.service';
-import { User } from '../../_models/user.model';
-import { UserService } from '../../_services/user.service';
+import { LoginService } from '../../services/login.service';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

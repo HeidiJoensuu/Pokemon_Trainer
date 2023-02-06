@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageUtil } from 'src/app/_utils/storage.utils';
-import { LoginService } from '../../_services/login.service';
-import { StorageKeys } from '../../_enums/storage-keys';
+import { StorageUtil } from 'src/app/utils/storage.utils';
+import { LoginService } from '../../services/login.service';
+import { StorageKeys } from '../../enums/storage-keys';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/_services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../services/user.service';
 import { AsyncPipe } from '@angular/common';
 
 @Injectable({

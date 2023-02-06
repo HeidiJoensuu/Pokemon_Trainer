@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user.service';
 import { finalize, findIndex, Observable, tap, throwError } from 'rxjs';
-import { User } from '../_models/user.model';
+import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
-import { Pokemon } from '../_models/pokemon.model';
+import { Pokemon } from '../models/pokemon.model';
 
 const { apiKey, apiPokemon } = environment;
 @Injectable({
@@ -22,25 +22,18 @@ export class UnfavouriteService {
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
     });
-    console.log(pokemonName, user);
     if ((user)?.pokemon) {
-      console.log((user)?.pokemon.find((pokemon: string) => pokemon === pokemonName));
-      
       if (!(user)?.pokemon.find((pokemon: string) => pokemon === pokemonName)) {
-        throw new Error('add to user: There is no user'); //?
+        throw new Error('Pokemon not found.'); //?
       } else {
-        //const filteredPokemons = [...user.pokemon].filter(pokemon => pokemon!==pokemonName)
-        const i = user.pokemon.findIndex((pokemon) => pokemon === pokemonName);
-        let filteredList = [...user.pokemon].filter((val, index) => index != i);
-        const stringifyList = JSON.stringify(filteredList)
-        //{ pokemon: filteredList },
+        const filteredPokemons = [...user.pokemon].filter(pokemon => pokemon!==pokemonName)
         this.http.patch<User>(`${apiPokemon}/${user?.id}`,
-          
-          JSON.stringify({ pokemon: [...user.pokemon = filteredList] }),
+          JSON.stringify({ pokemon: [...user.pokemon = filteredPokemons] }),
             { headers }
           )
           .subscribe({
             next: (answer) => {
+              console.log(answer);
               this.userService.user = answer;
             },
             error: (error: HttpErrorResponse) => {

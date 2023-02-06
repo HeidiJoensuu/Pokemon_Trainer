@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, of, switchMap } from 'rxjs';
-import { User } from '../_models/user.model';
+import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
 const { apiKey, apiPokemon } = environment;

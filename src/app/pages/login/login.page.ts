@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../../_models/user.model';
-import { StorageUtil } from '../../_utils/storage.utils';
-import { StorageKeys } from '../../_enums/storage-keys';
+import { User } from '../../models/user.model';
+import { StorageUtil } from '../../utils/storage.utils';
+import { StorageKeys } from '../../enums/storage-keys';
 
 @Component({
   selector: 'app-login',
