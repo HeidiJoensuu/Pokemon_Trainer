@@ -26,6 +26,7 @@ export class TrainerListItemsComponent implements OnInit {
   get user() {
     return this.userService.user$;
   }
+  
 /**
  * If theres no pictures fetch from api
  * @returns []
