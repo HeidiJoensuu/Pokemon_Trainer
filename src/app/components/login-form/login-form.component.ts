@@ -15,6 +15,10 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
 })
+
+/**
+ * This class handles events and params that are related to log in
+ */
 export class LoginFormComponent implements OnInit {
   
   @Output() login: EventEmitter<void> = new EventEmitter(); 
@@ -29,7 +33,7 @@ export class LoginFormComponent implements OnInit {
    * Handles the login/register contains simple name requirement
    * invokes loginServices
    * inform/emits to parent component 
-   * @param loginForm 
+   * @param loginForm NgForm
    */
   handleSubmit(loginForm: NgForm): void {
     const { username } = loginForm.value;
