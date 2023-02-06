@@ -30,7 +30,7 @@ export class UnfavouriteService {
         throw new Error('Pokemon not found.'); //?
       } else {
         const filteredPokemons = [...user.pokemon].filter(pokemon => pokemon!==pokemonName)
-        this.http.patch<User>(`${Url.URL}/${user?.id}`,
+        this.http.patch<User>(`${Url.URLAPI}/${user?.id}`,
           JSON.stringify({ pokemon: [...user.pokemon = filteredPokemons] }),
             { headers }
           )

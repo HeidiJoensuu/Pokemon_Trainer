@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { User } from '../models/user.model';
-import { environment } from '../../environments/environment';
+
+import { environment } from '../../environments/environment.prod';
 import { Url } from "../enums/url";
 
 const { apiKey } = environment;
@@ -41,7 +42,7 @@ export class LoginService {
    * @returns user : object
    */
   private checkUsername(username: string): Observable<User | undefined> {
-    return this.http.get<User[]>(`${Url.URL}`).pipe(
+    return this.http.get<User[]>(`${Url.URLAPI}`).pipe(
       map((response: User[]) => {
         return response.find(
           (user) =>
@@ -69,7 +70,7 @@ export class LoginService {
     });
 
     return this.http
-      .post<User>(Url.URL, user, {
+      .post<User>(Url.URLAPI, user, {
         headers,
       })
       .pipe(

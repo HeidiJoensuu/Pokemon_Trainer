@@ -48,7 +48,7 @@ export class UserService {
       'x-api-key': apiKey,
     });
     this.http
-      .patch<User>(`${Url.URL}/${user.id}`, newPokemon, { headers })
+      .patch<User>(`${Url.URLAPI}/${user.id}`, newPokemon, { headers })
       .subscribe({
         next: (answer) => {
           StorageUtil.storageSave<User>(StorageKeys.User, answer); // we know at this point it cannot be undefined

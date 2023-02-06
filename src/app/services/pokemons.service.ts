@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take, tap} from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
 import { StorageKeys } from '../enums/storage-keys';
+import { Url } from "../enums/url";
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class PokemonsService {
    * @returns Observable<Pokemon[]>
    */
   public fetchPokemons(): Observable<Pokemon[]> {
-    const pokemons = this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+    const pokemons = this.http.get<PokemonsResponse>(Url.URLPOKEAPI)
     .pipe(
       map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
     )
@@ -49,7 +50,7 @@ export class PokemonsService {
   private findDefaultPicture = (url: string): string => {
     const number = url.match(/(\d+)/g)
     if (number?.length === 2){
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number.at(1)}.png`
+      return `${Url.URLDEFAULTIMG}${number.at(1)}.png`
     } return ''
   }
 
