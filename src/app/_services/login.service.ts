@@ -17,6 +17,7 @@ export class LoginService {
 
   //! 1) login function checks  exists or undefined > switch regarding to that
   public login(username: string): Observable<User> {
+
     return this.checkUsername(username).pipe(
       switchMap((user: User | undefined) => {
         console.log('is undefined? : ', user, ' to: ', username);
@@ -36,7 +37,7 @@ export class LoginService {
         map((response: User[]) => {
           return response.find(
             (user) =>
-              user.username.toLowerCase().match(username.toLowerCase()) && response.pop()
+              user.username.toLowerCase() === username.toLowerCase() && response.pop()
           );
         })
       );
