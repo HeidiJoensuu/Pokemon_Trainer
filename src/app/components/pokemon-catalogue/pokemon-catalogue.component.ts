@@ -20,6 +20,10 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './pokemon-catalogue.component.html',
   styleUrls: ['./pokemon-catalogue.component.css'],
 })
+
+/**
+ * This class handles events and params that are related to listing pokemons
+ */
 export class PokemonCatalogueComponent implements OnInit {
   page = 1;
   pageSize = 10;
@@ -38,10 +42,18 @@ export class PokemonCatalogueComponent implements OnInit {
     this.refreshPokemons();
   }
 
+  /**
+   * @returns Observable<Pokemon[]>
+   */
   public get pokemons$(): Observable<Pokemon[]> {
     return this.pokemonsService.showingPokemons$;
   }
 
+  /**
+   * Checks if the currently rendering pokemon is already caught
+   * @param pokemon string - Pokemon to find
+   * @returns boolean - caughtPokemon
+   */
   public caught(pokemon: string): boolean {
     this.userService.user$.pipe(
       switchMap((user: User): any => {
@@ -55,6 +67,10 @@ export class PokemonCatalogueComponent implements OnInit {
 
   }
 
+  /**
+   * Sets showing pokemons depending on page (number) and 
+   * pageSize (number) variables
+   */
   private refresPage = () => {
     const result = this.pokemonsService.pokemons$.subscribe((pokemons) => {
       try {
@@ -69,11 +85,19 @@ export class PokemonCatalogueComponent implements OnInit {
     result.unsubscribe();
   };
 
+  /**
+   * Sets new showing pokemons and sends order to find 
+   * pictures for them from pokemonService
+   */
   refreshPokemons() {
     this.refresPage();
     this.pokemonsService.fetchPokemonPictures(this.showingPokemons);
   }
 
+  /**
+   * Sends order to set selected pokemon to be added into user's pokemon-list
+   * @param pokemon string - Pokemon to be caught
+   */
   catchPokemon(pokemon: string) {
     this.userService.user$.pipe(take(1)).subscribe((user)=> {
       if(user.id && user.pokemon){

@@ -7,20 +7,27 @@ import { StorageKeys } from '../enums/storage-keys';
 @Injectable({
   providedIn: 'root'
 })
-export class PokemonsService {
 
+/**
+ * This class provides services for pokemon-related events and variables
+ */
+export class PokemonsService {
   constructor(private readonly http:HttpClient) { }
 
   private readonly _pokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
   private readonly _showingPokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon[]>([])
 
+  /**
+   * Gets pokemons from api
+   * @returns Observable<Pokemon[]>
+   */
   public fetchPokemons(): Observable<Pokemon[]> {
-    const asd = this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+    const pokemons = this.http.get<PokemonsResponse>("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
     .pipe(
       map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
     )
     
-    asd.subscribe({
+    pokemons.subscribe({
       next: (pokemons: Pokemon[]) => {
         if (!(window.sessionStorage.getItem(StorageKeys.Pokemon))) {
           this._pokemons$.next(pokemons)
@@ -31,9 +38,14 @@ export class PokemonsService {
         console.log(error.message);
       }
     })
-    return asd;
+    return pokemons;
   }
 
+  /**
+   * Compines pokemon's id and default picture url
+   * @param url  string
+   * @returns string - url to image og the pokemon
+   */
   private findDefaultPicture = (url: string): string => {
     const number = url.match(/(\d+)/g)
     if (number?.length === 2){
@@ -41,6 +53,11 @@ export class PokemonsService {
     } return ''
   }
 
+  /**
+   * Finds url's for pokemon pictures
+   * @param pokemon  Pokemon {name: string, url: string, picture?: string}
+   * @returns Pokemon {name: string, url: string, picture?: string}
+   */
   private findPicture = (pokemon: Pokemon): Pokemon => {
     if (!pokemon.picture) {     
       this.http.get(pokemon.url)
@@ -65,6 +82,10 @@ export class PokemonsService {
     return pokemon
   }
 
+  /**
+   * Finds url's for pokemon pictures and saves them
+   * @param pokemons [{name: string, url: string, picture?: string}]
+   */
   public fetchPokemonPictures(pokemons: Pokemon[]): void {
     let showingPokemons: Pokemon[] = []
     pokemons.forEach((element: Pokemon) => {
@@ -96,6 +117,11 @@ export class PokemonsService {
     })
   }
 
+  /**
+   * Finds pictures for pokemons using findPicture-function.
+   * @param pokemons string[]
+   * @returns Pokemon[] [{name: string, url: string, picture?: string}]
+   */
   public fetchPokemonPicturesW2 = (pokemons: string[]): Pokemon[] =>  {
     const showingPokemons: Pokemon[] = []
     const pokemonList = JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}')
@@ -107,10 +133,18 @@ export class PokemonsService {
     return showingPokemons
   }
   
+  /**
+   * Retuns list of x amound of pokemons
+   * @returns Observable<Pokemon[]>
+   */
   public get showingPokemons$() : Observable<Pokemon[]> {
     return this._showingPokemons$.asObservable()
   }
 
+  /**
+   * Retuns list of all pokemons
+   *  @returns Observable<Pokemon[]>
+   */
   public get pokemons$() : Observable<Pokemon[]> {
     this._pokemons$.next(JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}'))
     return this._pokemons$.asObservable()
