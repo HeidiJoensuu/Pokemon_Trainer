@@ -3,8 +3,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { UserService } from './user.service';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { Url } from "../enums/url";
 
-const { apiKey, apiPokemon } = environment;
+const { apiKey } = environment;
 @Injectable({
   providedIn: 'root',
 })
@@ -29,7 +30,7 @@ export class UnfavouriteService {
         throw new Error('Pokemon not found.'); //?
       } else {
         const filteredPokemons = [...user.pokemon].filter(pokemon => pokemon!==pokemonName)
-        this.http.patch<User>(`${apiPokemon}/${user?.id}`,
+        this.http.patch<User>(`${Url.URL}/${user?.id}`,
           JSON.stringify({ pokemon: [...user.pokemon = filteredPokemons] }),
             { headers }
           )
