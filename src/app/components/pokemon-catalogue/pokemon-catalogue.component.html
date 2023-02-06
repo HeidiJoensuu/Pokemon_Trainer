@@ -7,14 +7,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let pokemon of pokemons$ | async">
-				<td>
-					<img [src]="pokemon?.picture" class="me-2" width="50px" alt="picture" />
+			<tr *ngFor="let pokemon of pokemons$ | async" class="list-elements">
+				<td class="pokemon-item">
+					<div class="image-container">
+						<img [src]="pokemon?.picture" class="pokemon-image" alt="picture" />
+					</div>
 					{{ pokemon.name }}
 				</td>
 				<td style="position: relative;">
-					<img *ngIf="caught(pokemon.name)" [src]="'../../assets/Pokeball.png'" width="48px" style="position:absolute; right: 18px;"/>
-					<button *ngIf="!(caught(pokemon.name))" (click)="catchPokemon(pokemon.name)"  style="position:absolute; right: 15px;"class="btn btn-sm catch-button">Catch!</button>
+					<img *ngIf="caught(pokemon.name)" [src]="'../../assets/Pokeball.png'" class="pokeball"/>
+					<button *ngIf="!(caught(pokemon.name))" (click)="catchPokemon(pokemon.name)" class="btn btn-sm catch-button">Catch!</button>
 				</td>
 
 			</tr>

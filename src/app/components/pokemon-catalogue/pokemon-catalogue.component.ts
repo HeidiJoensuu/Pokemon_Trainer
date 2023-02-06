@@ -64,7 +64,6 @@ export class PokemonCatalogueComponent implements OnInit {
         );
       } catch (error) {
         console.log(error);
-        
       }
     });
     result.unsubscribe();
