@@ -1,6 +1,17 @@
 .pokemon-list-card {
   padding: 1rem;
 }
+.pokemon-list-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokemon-info-item{
+  display: flex;
+  align-items: center;
+}
+
 .remove-favourite-button {
   float: right;
   margin-top: 10px;

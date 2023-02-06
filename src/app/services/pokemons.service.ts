@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, map, Observable} from 'rxjs';
+import { BehaviorSubject, map, Observable, take, tap} from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
+import { StorageKeys } from '../enums/storage-keys';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,9 @@ export class PokemonsService {
     
     asd.subscribe({
       next: (pokemons: Pokemon[]) => {
-        if (!(window.sessionStorage.getItem('pokemons'))) {
+        if (!(window.sessionStorage.getItem(StorageKeys.Pokemon))) {
           this._pokemons$.next(pokemons)
-          window.sessionStorage.setItem('pokemons', JSON.stringify(pokemons))
+          window.sessionStorage.setItem(StorageKeys.Pokemon, JSON.stringify(pokemons))
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -31,6 +32,13 @@ export class PokemonsService {
       }
     })
     return asd;
+  }
+
+  private findDefaultPicture = (url: string): string => {
+    const number = url.match(/(\d+)/g)
+    if (number?.length === 2){
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number.at(1)}.png`
+    } return ''
   }
 
   private findPicture = (pokemon: Pokemon): Pokemon => {
@@ -42,7 +50,8 @@ export class PokemonsService {
         next: (answer) => {
           //@ts-ignore
           let picture = answer.sprites?.other?.dream_world?.front_default
-          let pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+          if (picture === null) picture = this.findDefaultPicture(pokemon.url)
+          let pokemonList = JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}')
           const index = pokemonList.findIndex((e: { name: string; }) => e.name ===pokemon.name)
           pokemonList[index].picture = picture
           pokemon.picture = picture
@@ -67,7 +76,8 @@ export class PokemonsService {
           next: (pokemon) => {
             //@ts-ignore
             let picture = pokemon.sprites?.other?.dream_world?.front_default
-            let pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+            if (picture === null) picture = this.findDefaultPicture(element.url)
+            let pokemonList = JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}')
             const index = pokemonList.findIndex((e: { name: string; }) => e.name ===element.name)
             pokemonList[index].picture = picture
             element.picture = picture
@@ -87,10 +97,8 @@ export class PokemonsService {
   }
 
   public fetchPokemonPicturesW2 = (pokemons: string[]): Pokemon[] =>  {
-    console.log(pokemons);
-    
     const showingPokemons: Pokemon[] = []
-    const pokemonList = JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}')
+    const pokemonList = JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}')
     pokemons.forEach((element: string) => {
       let currentPokemon: Pokemon = pokemonList.find((poke: Pokemon) => poke.name === element)
       currentPokemon = this.findPicture(currentPokemon)
@@ -104,7 +112,7 @@ export class PokemonsService {
   }
 
   public get pokemons$() : Observable<Pokemon[]> {
-    this._pokemons$.next(JSON.parse(window.sessionStorage.getItem('pokemons')|| '{}'))
+    this._pokemons$.next(JSON.parse(window.sessionStorage.getItem(StorageKeys.Pokemon)|| '{}'))
     return this._pokemons$.asObservable()
   }
 

@@ -10,7 +10,7 @@
 			<tr *ngFor="let pokemon of pokemons$ | async" class="list-elements">
 				<td class="pokemon-item">
 					<div class="image-container">
-						<img [src]="pokemon?.picture" class="pokemon-image" alt="picture" />
+						<img *ngIf="pokemon.picture !== ''" [src]="pokemon?.picture" class="pokemon-image" alt="picture" />
 					</div>
 					{{ pokemon.name }}
 				</td>
