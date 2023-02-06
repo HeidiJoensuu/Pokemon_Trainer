@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { Url } from "../enums/url";
 
-const { apiKey, apiPokemon } = environment;
+const { apiKey } = environment;
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class LoginService {
    * @returns user : object
    */
   private checkUsername(username: string): Observable<User | undefined> {
-    return this.http.get<User[]>(`${apiPokemon}`).pipe(
+    return this.http.get<User[]>(`${Url.URL}`).pipe(
       map((response: User[]) => {
         return response.find(
           (user) =>
@@ -68,7 +69,7 @@ export class LoginService {
     });
 
     return this.http
-      .post<User>(apiPokemon, user, {
+      .post<User>(Url.URL, user, {
         headers,
       })
       .pipe(

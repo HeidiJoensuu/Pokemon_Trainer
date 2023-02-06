@@ -67,6 +67,9 @@
             },
             "development": {
               "browserTarget": "Pokemon_Trainer:build:development"
+            },
+            "staging": {
+              "browserTarget": "Pokemon_Trainer:build:staging"
             }
           },
           "defaultConfiguration": "development"
