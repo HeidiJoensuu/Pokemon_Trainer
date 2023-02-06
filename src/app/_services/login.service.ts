@@ -5,19 +5,23 @@ import { User } from '../_models/user.model';
 import { environment } from '../../environments/environment';
 
 const { apiKey, apiPokemon } = environment;
-//handle login features
+
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  //inject http here
 
-  constructor(
-    private readonly http: HttpClient  ) {}
+ constructor(private readonly http: HttpClient) {}
+
+  /**
+   * checks given string, with http get if name exists return object
+   * else create a new object with username
+   * @param username : string
+   * @returns user : object
+   */
 
   //! 1) login function checks  exists or undefined > switch regarding to that
   public login(username: string): Observable<User> {
-
     return this.checkUsername(username).pipe(
       switchMap((user: User | undefined) => {
         console.log('is undefined? : ', user, ' to: ', username);
@@ -29,23 +33,31 @@ export class LoginService {
       })
     );
   }
-  //GET //pop the last item on array and return
+
+  /**
+   * checks if current user exists GET
+   * @param username : string
+   * @returns user : object
+   */
   private checkUsername(username: string): Observable<User | undefined> {
-    return this.http
-      .get<User[]>(`${apiPokemon}`)  //GET users then map find and pop matching username
-      .pipe(
-        map((response: User[]) => {
-          return response.find(
-            (user) =>
-              user.username.toLowerCase() === username.toLowerCase() && response.pop()
-          );
-        })
-      );
+    return this.http.get<User[]>(`${apiPokemon}`).pipe(
+      map((response: User[]) => {
+        return response.find(
+          (user) =>
+            user.username.toLowerCase() === username.toLowerCase() &&
+            response.pop()
+        );
+      })
+    );
   }
-  //POST
+  /**
+   * create new user object with given string POST
+   * @param username : string
+   * @returns user : object
+   */
   private createUser(username: string) {
     console.log('creates user: ', username);
-    //create user object
+
     const user = {
       username,
       pokemon: [],
@@ -54,7 +66,7 @@ export class LoginService {
       'Content-type': 'application/json',
       'x-api-key': apiKey,
     });
-    //logic
+
     return this.http
       .post<User>(apiPokemon, user, {
         headers,

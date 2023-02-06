@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  NgModule,
   Output,
   EventEmitter,
 } from '@angular/core';
@@ -17,15 +16,21 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent implements OnInit {
-  //emitter output
-  @Output() login: EventEmitter<void> = new EventEmitter(); //emits to parent component
+  
+  @Output() login: EventEmitter<void> = new EventEmitter(); 
   constructor(
     private readonly loginService: LoginService,
     private readonly userService: UserService,
     private readonly toastr: ToastrService
   ) {}
   ngOnInit(): void {}
-  //input data
+  
+  /**
+   * Handles the login/register contains simple name requirement
+   * invokes loginServices
+   * inform/emits to parent component 
+   * @param loginForm 
+   */
   handleSubmit(loginForm: NgForm): void {
     const { username } = loginForm.value;
     if (username.length < 3) {
@@ -40,6 +45,6 @@ export class LoginFormComponent implements OnInit {
         complete: () => console.log('login complete'),
       });
     }
-    //login contains get and post for pokemon api > user service will save current session // emit to parent: login form
+    
   }
 }

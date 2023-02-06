@@ -58,7 +58,7 @@ export class PokemonCatalogueComponent implements OnInit {
   private refresPage = () => {
     const result = this.pokemonsService.pokemons$.subscribe((pokemons) => {
       try {
-        this.showingPokemons = pokemons.slice(
+        this.showingPokemons = pokemons!.slice(
           (this.page - 1) * this.pageSize,
           this.page * this.pageSize
         );

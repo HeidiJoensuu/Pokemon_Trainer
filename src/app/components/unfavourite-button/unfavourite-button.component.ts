@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from '../../_models/pokemon.model';
-import { User } from '../../_models/user.model';
 import { UnfavouriteService } from '../../_services/unfavourite.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/_services/user.service';
 import { take } from "rxjs";
 
@@ -13,7 +11,7 @@ import { take } from "rxjs";
 })
 export class UnfavouriteButtonComponent implements OnInit {
   @Input() pokemonName?: Pokemon;
-  constructor(private unfavouriteService: UnfavouriteService,private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   ngOnInit(): void {}
   get pokemon() {

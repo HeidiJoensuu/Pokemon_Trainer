@@ -12,7 +12,7 @@ import { PokemonCatalogueComponent } from './components/pokemon-catalogue/pokemo
 import { LoginPage } from './pages/login/login.page';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePage } from './pages/profile/profile.page';
-import { ErrorPage } from './pages/error/error.page';
+
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TrainerListItemsComponent } from './components/trainer-list-items/trainer-list-items.component';
@@ -28,7 +28,7 @@ import { CataloguePage } from './pages/catalogue/catalogue.page';
     LoginFormComponent,
     PokemonCatalogueComponent,
     ProfilePage,
-    ErrorPage,
+
     NavbarComponent,
     TrainerListItemsComponent,
     LoginPageAltComponent,
