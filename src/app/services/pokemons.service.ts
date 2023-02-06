@@ -74,11 +74,7 @@ export class PokemonsService {
           .subscribe({
             next: (pokemon) => {
               //@ts-ignore
-              let picture = pokemon.sprites?.other?.dream_world?.front_default;
-              //@ts-ignore
-              let abilities = pokemon?.abilities;
-              //@ts-ignore
-              let stats = pokemon?.stats;
+              let picture = pokemon.sprites?.other?.dream_world?.front_default;    
               let pokemonList = JSON.parse(
                 window.sessionStorage.getItem('pokemons') || '{}'
               );
