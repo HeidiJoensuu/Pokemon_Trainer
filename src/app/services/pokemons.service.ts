@@ -22,24 +22,31 @@ export class PokemonsService {
    * Gets pokemons from api
    * @returns Observable<Pokemon[]>
    */
-  public fetchPokemons(): Observable<Pokemon[]> {
-    const pokemons = this.http.get<PokemonsResponse>(Url.URLPOKEAPI)
-    .pipe(
-      map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
-    )
-    
-    pokemons.subscribe({
-      next: (pokemons: Pokemon[]) => {
-        if (!(window.sessionStorage.getItem(StorageKeys.Pokemon))) {
-          this._pokemons$.next(pokemons)
-          window.sessionStorage.setItem(StorageKeys.Pokemon, JSON.stringify(pokemons))
+  //@ts-ignore
+  public fetchPokemons(): Observable<Pokemon[]>{
+    for (let index = 0; index < 1300; index += 100){
+      const pokemons = this.http.get<PokemonsResponse>(`${Url.URLPOKEAPI}${index}`)
+      .pipe(
+        map((pokemonResponse: PokemonsResponse) => pokemonResponse.results)
+      )
+      
+      pokemons.subscribe({
+        next: (answer: Pokemon[]) => {
+          if (!(window.sessionStorage.getItem(StorageKeys.Pokemon))) {
+            let currentPokemons = this._pokemons$.value
+            let updatedPokemons: Pokemon[] = []
+            if (currentPokemons.keys === undefined) updatedPokemons = answer
+            else updatedPokemons = currentPokemons.concat(answer)
+            this._pokemons$.next(updatedPokemons)
+            window.sessionStorage.setItem(StorageKeys.Pokemon, JSON.stringify(updatedPokemons))
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error.message);
         }
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    })
-    return pokemons;
+      })
+      return pokemons;
+    }
   }
 
   /**

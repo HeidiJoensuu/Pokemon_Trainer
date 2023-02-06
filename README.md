@@ -71,3 +71,6 @@ The goal was list and show pokemons with pictures and user can catch and release
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
 ## Link to deployed site
+https://glitch.com/ is used as API in this project. It is slow (starting) in first api call, so first api call (log in, catching pokemon) might take 5-10 sekonds.
+
+Link to running server: https://pokemon-trainer-h9m597awa-heidijoensuu.vercel.app/

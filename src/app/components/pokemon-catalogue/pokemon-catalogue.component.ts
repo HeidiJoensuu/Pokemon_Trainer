@@ -74,12 +74,15 @@ export class PokemonCatalogueComponent implements OnInit {
   private refresPage = () => {
     const result = this.pokemonsService.pokemons$.subscribe((pokemons) => {
       try {
+        //quick fix for waiting to get pokemons from pokemonService
+        if(pokemons.length === undefined) window.location.reload()
         this.showingPokemons = pokemons!.slice(
           (this.page - 1) * this.pageSize,
           this.page * this.pageSize
         );
       } catch (error) {
         console.log(error);
+        
       }
     });
     result.unsubscribe();

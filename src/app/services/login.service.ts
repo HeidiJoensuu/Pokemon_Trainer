@@ -26,8 +26,6 @@ export class LoginService {
   public login(username: string): Observable<User> {
     return this.checkUsername(username).pipe(
       switchMap((user: User | undefined) => {
-        console.log('is undefined? : ', user, ' to: ', username);
-
         if (user === undefined) {
           return this.createUser(username);
         }
@@ -58,8 +56,6 @@ export class LoginService {
    * @returns user : object
    */
   private createUser(username: string) {
-    console.log('creates user: ', username);
-
     const user = {
       username,
       pokemon: [],

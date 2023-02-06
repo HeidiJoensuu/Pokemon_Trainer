@@ -36,7 +36,6 @@ export class UnfavouriteService {
           )
           .subscribe({
             next: (answer) => {
-              console.log(answer);
               this.userService.user = answer;
             },
             error: (error: HttpErrorResponse) => {
