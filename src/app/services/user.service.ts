@@ -9,8 +9,9 @@ import { StorageUtil } from '../utils/storage.utils';
 import { StorageKeys } from '../enums/storage-keys';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Url } from "../enums/url";
 
-const { apiKey, apiPokemon } = environment;
+const { apiKey } = environment;
 //saving the user
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,7 @@ export class UserService {
       'x-api-key': apiKey,
     });
     this.http
-      .patch<User>(`${apiPokemon}/${user.id}`, newPokemon, { headers })
+      .patch<User>(`${Url.URL}/${user.id}`, newPokemon, { headers })
       .subscribe({
         next: (answer) => {
           StorageUtil.storageSave<User>(StorageKeys.User, answer); // we know at this point it cannot be undefined
